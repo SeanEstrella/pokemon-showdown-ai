@@ -1,3 +1,4 @@
 logs/
 replays/
 __pycache__/
+src/config/settings.py
