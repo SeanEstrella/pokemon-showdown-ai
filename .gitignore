@@ -3,3 +3,5 @@ replays/
 __pycache__/
 src/config/settings.py
 .gitmessage
+# Virtual environments
+**/env
