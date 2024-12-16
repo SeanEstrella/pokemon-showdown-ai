@@ -1,0 +1,121 @@
+# pyproject.toml
+[tool.poetry]
+name = "pokemon-showdown-ai"
+version = "0.1.0"
+description = "A Pokémon Showdown battling bot."
+authors = ["Sean Estrella"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14"
+poke-env = "^0.8.1"
+nashpy = "^0.0.41"
+debugpy = "^1.8.7"
+python-dotenv = "^1.0.1"
+hvac = "^2.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^4.0.0"
+black = "^23.10.0"
+isort = "^5.10.1"
+flake8 = "^5.0.0"
+mypy = "^1.8.0"
+bandit = "^1.7.10"
+pre-commit = "^4.0.1"
+pylint = "^3.3.1"
+ruff = "^0.1.8"
+types-setuptools = "^69.0.0.0"
+typing-extensions = "^4.9.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+ignore_missing_imports = true
+files = "src"
+
+[tool.pylint]
+max-line-length = 88
+disable = [
+    "C0111",  # missing-docstring
+    "R0903",  # too-few-public-methods
+    "C0103",  # invalid-name
+]
+good-names = ["i", "j", "k", "ex", "Run", "_"]
+ignore-paths = ["tests"]
+
+[tool.pytest.ini_options]
+addopts = """
+    --cov=src 
+    --cov-report=term-missing 
+    --cov-report=xml:coverage.xml
+    --cov-report=html:coverage_html
+    -v
+    --durations=10
+    """
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+ignore_errors = true
+fail_under = 80
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = []
